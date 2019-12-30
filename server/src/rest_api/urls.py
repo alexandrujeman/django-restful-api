@@ -17,10 +17,10 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url
 from django.urls import path, include
-from core.views import TestView
+from core.views import ProjectView
 
 urlpatterns = [
     url(r'^api-auth/', include('rest_framework.urls')),
     path('admin/', admin.site.urls),
-    url(r'^api', TestView.as_view(), name='test'),
+    url(r'^api/projects', ProjectView.as_view(), name='test'),
 ]
