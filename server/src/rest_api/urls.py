@@ -18,6 +18,7 @@ from django.urls import path
 from django.conf.urls import url
 from django.urls import path, include
 from core.views import ProjectView
+from .api import router
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
@@ -25,10 +26,11 @@ from rest_framework_simplejwt.views import (
 )
 
 urlpatterns = [
-    url(r'^api-auth/', include('rest_framework.urls')),
-    url(r'^admin/', admin.site.urls),
-    url(r'^api/projects', ProjectView.as_view(), name='test'),
+    url(r'^api/public/', ProjectView.as_view()),
+    url(r'^api/projects/', include(router.urls)),
     url(r'^api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     url(r'^api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     url(r'^api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
+    url(r'^api-auth/', include('rest_framework.urls')),
+    url(r'^admin/', admin.site.urls),
 ]
