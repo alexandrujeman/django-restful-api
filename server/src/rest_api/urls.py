@@ -19,18 +19,22 @@ from django.conf.urls import url
 from django.urls import path, include
 from core.views import ProjectView
 from .api import router
-from rest_framework_simplejwt.views import (
-    TokenObtainPairView,
-    TokenRefreshView,
-    TokenVerifyView
-)
 
 urlpatterns = [
+    # API
     url(r'^api/public/', ProjectView.as_view()),
     url(r'^api/projects/', include(router.urls)),
-    url(r'^api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    url(r'^api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    url(r'^api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
     url(r'^api-auth/', include('rest_framework.urls')),
     url(r'^admin/', admin.site.urls),
+    # Djoser end points with simple_jwt
+    url(r'^auth/', include('djoser.urls')),
+    url(r'^auth/', include('djoser.urls.jwt')),
 ]
+
+#### Authentication endpoints ####
+# /auth/users/	Register a new user
+# /auth/users/me/	retrieve/update the currently logged in user
+# /auth/jwt/create/	create a JWT by passing a valid user in the post request to this endpoint
+# /auth/jwt/refresh/	get a new JWT once the lifetime of the previously generated one expires
+# /api/accounts/all-profiles/	get all user profiles and create a new one
+# /api/accounts/profile/id/	detail view of a user's profile
