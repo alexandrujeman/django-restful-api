@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'core',
     'djoser',
     'rest_framework_simplejwt',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -53,6 +54,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'rest_api.urls'
@@ -159,3 +161,9 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
 }
+
+CORS_ORIGIN_WHITELIST = [
+    "https://alexjeman.com",
+    "http://localhost:8000",
+    "http://localhost:3000"
+]
